@@ -2,9 +2,13 @@
 A file manager built on electron
 
 ## Todos
+- Wire Up the UI
 - Sidebar
   - Shows places like home, desktopm trash and XDG base dirs.
   - Shows directory tree
+
+- Content
+  - Multiple layout options (grid, list)
 
 - Context Menu
   - on selection
@@ -37,7 +41,7 @@ A file manager built on electron
     - free space (total space)
 
 - Themes
-  - Default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark
+  - default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark
 
 ### Install
 
