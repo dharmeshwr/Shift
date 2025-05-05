@@ -1,34 +1,66 @@
-# shift
+# Shift
+A file manager built on electron
 
-An Electron application with React and TypeScript
+## Todos
+- Sidebar
+  - Shows places like home, desktopm trash and XDG base dirs.
+  - Shows directory tree
 
-## Recommended IDE Setup
+- Context Menu
+  - on selection
+    - open; open in new tab, new window, terminal;
+    - open with
+    - cut, copy, paste, rename, copy path
+    - move to trash
+    - properties
+  - on blank page
+    - create new file, directory
+    - select all, invert selection
+    - sort files by
+      - ascending, descending
+      - name, size, modification time, file type
+      - show hidden
+      - properties
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- Header
+  - home, foward and backward button
+  - location bar; go to the path in location bar
+  - history
 
-## Project Setup
+- Footer
+  - left side
+    - no selection
+      - total items count (hidden items count)
+    - selection
+      - selected file size
+  - right side
+    - free space (total space)
+
+- Themes
+  - Default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark
 
 ### Install
 
 ```bash
-$ pnpm install
+pnpm install
 ```
 
 ### Development
 
 ```bash
-$ pnpm dev
+pnpm dev
 ```
 
 ### Build
 
 ```bash
 # For windows
-$ pnpm build:win
+pnpm build:win
 
 # For macOS
-$ pnpm build:mac
+pnpm build:mac
 
 # For Linux
-$ pnpm build:linux
+pnpm build:linux
 ```
+
