@@ -19,7 +19,7 @@ export const Sidebar = ({
   ...rest
 }: ComponentProps<'aside'>): ReactElement => {
   return (
-    <aside className={cn('w-[400px] overflow-auto', className)} {...rest}>
+    <aside className={cn('w-1/3 max-w-[400px] hidden md:block overflow-auto', className)} {...rest}>
       {children}
     </aside>
   )

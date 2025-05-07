@@ -1,7 +1,9 @@
 import { contextBridge } from 'electron'
+import { ipcRenderer } from 'electron/renderer'
 
-// Custom APIs for renderer
-const api = {}
+const api = {
+  ping: (...args: Array<unknown>) => ipcRenderer.invoke('ping', ...args)
+}
 
 if (!process.contextIsolated) {
   throw new Error('Context isolation must be enabled in the browser window')

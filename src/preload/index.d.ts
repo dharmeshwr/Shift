@@ -1,5 +1,7 @@
 declare global {
   interface Window {
-    api: unknown
+    api: {
+      ping: () => void
+    }
   }
 }
