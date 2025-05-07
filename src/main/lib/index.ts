@@ -1,4 +1,5 @@
 import { IpcMain, Notification } from 'electron/main'
+import { getUserConfiguration, updateUserConfiguration } from './config'
 
 function sendIPCNotification(...args: Array<unknown>): void {
   const NOTIFICATION_TITLE = 'PING PONG'
@@ -10,4 +11,7 @@ function sendIPCNotification(...args: Array<unknown>): void {
 export function setupIPC(ipcMain: IpcMain): void {
   //IPC test
   ipcMain.handle('ping', (_, ...args) => sendIPCNotification(...args))
+
+  ipcMain.handle('config:get', () => getUserConfiguration())
+  ipcMain.handle('config:update', (_, content) => updateUserConfiguration(content))
 }

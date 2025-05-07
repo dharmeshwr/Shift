@@ -1,6 +1,6 @@
 import { CiServer } from 'react-icons/ci'
 
-export const PingButton = (): React.ReactElement | null => {
+export const PingButton = ({ message }: { message: string }): React.ReactElement | null => {
   if (process.env.NODE_ENV !== 'development') return null
 
   return (
@@ -17,7 +17,7 @@ export const PingButton = (): React.ReactElement | null => {
         rounded-full
         p-1
       "
-      onClick={() => window.api.ping('hello')}
+      onClick={() => window.api.ping(message)}
     >
       <CiServer size={25} />
     </button>

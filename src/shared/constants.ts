@@ -1,7 +1,6 @@
 export enum THEME {
   Default = '',
   Gruvbox = 'gruvbox',
-  Dracula = 'dracula',
   Catppuccin = 'catppuccin',
   TokyoNight = 'tokyo-night',
   NightOwl = 'night-owl',

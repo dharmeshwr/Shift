@@ -10,7 +10,7 @@ const App = (): React.ReactElement => {
         Content
         <ThemeSwitcher />
       </Content>
-      <PingButton />
+      <PingButton message={'hello world'} />
     </RootLayout>
   )
 }
