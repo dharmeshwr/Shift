@@ -14,7 +14,7 @@ export const ThemeSwitcher = (): React.ReactElement => {
       console.warn(`Invalid theme value: ${themeValue}. Falling back to Default.`)
       setTheme(THEME.Default)
     }
-  };
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     updateTheme(event.target.value)

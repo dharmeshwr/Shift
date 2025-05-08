@@ -40,8 +40,8 @@ A file manager built on electron
   - right side
     - free space (total space)
 
-- Themes
-  - default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark
+- ~Themes~
+  - ~default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark~
 
 ### Install
 
