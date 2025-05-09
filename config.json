@@ -1,3 +1,7 @@
 {
-  "sidebarView": "Directory Tree"
+  "sidebarView": "Directory Tree",
+  "sidebarOpenDirs": [
+    "0.5_ninjafire_0",
+    "1.5_Downloads_2"
+  ]
 }

@@ -7,7 +7,7 @@ export const RootLayout = ({
   ...rest
 }: ComponentProps<'main'>): ReactElement => {
   return (
-    <main className={cn('flex h-screen', className)} {...rest}>
+    <main className={cn('flex flex-col h-screen', className)} {...rest}>
       {children}
     </main>
   )
