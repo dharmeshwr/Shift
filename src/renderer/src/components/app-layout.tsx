@@ -13,7 +13,7 @@ export const RootLayout = ({
   )
 }
 
-export const Sidebar = ({
+export const SidebarLayout = ({
   children,
   className,
   ...rest
@@ -25,9 +25,16 @@ export const Sidebar = ({
   )
 }
 
-export const Content = ({ className, children, ...rest }: ComponentProps<'div'>): ReactElement => {
+export const ContentLayout = ({
+  className,
+  children,
+  ...rest
+}: ComponentProps<'div'>): ReactElement => {
   return (
-    <div className={cn('flex-1 overflow-auto', className)} {...rest}>
+    <div
+      className={cn('flex-1 overflow-auto border-l border-l-foreground-muted/30', className)}
+      {...rest}
+    >
       {children}
     </div>
   )

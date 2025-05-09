@@ -1,18 +1,18 @@
-import { THEME } from '@shared/constants'
+import { Theme } from '@shared/types'
 import { useEffect, useState } from 'react'
 
 export const ThemeSwitcher = (): React.ReactElement => {
-  const [theme, setTheme] = useState(THEME.Default)
+  const [theme, setTheme] = useState(Theme.Default)
   const { getUserConfiguration, updateUserConfiguration } = window.api
 
   const updateTheme = (themeValue: string): void => {
-    if (Object.values(THEME).includes(themeValue as THEME)) {
-      const validTheme = themeValue as THEME
+    if (Object.values(Theme).includes(themeValue as Theme)) {
+      const validTheme = themeValue as Theme
       document.querySelector('body')?.setAttribute('data-theme', validTheme)
       setTheme(validTheme)
     } else {
       console.warn(`Invalid theme value: ${themeValue}. Falling back to Default.`)
-      setTheme(THEME.Default)
+      setTheme(Theme.Default)
     }
   }
 
@@ -27,7 +27,7 @@ export const ThemeSwitcher = (): React.ReactElement => {
         const data = await getUserConfiguration()
         updateTheme(data.theme)
       } catch {
-        updateTheme(THEME.Default)
+        updateTheme(Theme.Default)
       }
     })()
   }, [])
@@ -35,14 +35,14 @@ export const ThemeSwitcher = (): React.ReactElement => {
   return (
     <div className="absolute bottom-0 right-0">
       <select className="bg-background-muted w-fit" value={theme} onChange={handleChange}>
-        <option value={THEME.Default}>Default</option>
-        <option value={THEME.Gruvbox}>Gruvbox</option>
-        <option value={THEME.Catppuccin}>Catppuccin</option>
-        <option value={THEME.TokyoNight}>Tokyo Night</option>
-        <option value={THEME.NightOwl}>Night Owl</option>
-        <option value={THEME.OneDark}>One Dark</option>
-        <option value={THEME.Nord}>Nord</option>
-        <option value={THEME.Solarized}>Solarized</option>
+        <option value={Theme.Default}>Default</option>
+        <option value={Theme.Gruvbox}>Gruvbox</option>
+        <option value={Theme.Catppuccin}>Catppuccin</option>
+        <option value={Theme.TokyoNight}>Tokyo Night</option>
+        <option value={Theme.NightOwl}>Night Owl</option>
+        <option value={Theme.OneDark}>One Dark</option>
+        <option value={Theme.Nord}>Nord</option>
+        <option value={Theme.Solarized}>Solarized</option>
       </select>
     </div>
   )

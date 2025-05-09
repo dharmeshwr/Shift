@@ -7,6 +7,7 @@
   --color-button-accent: #2563eb;
   --color-button-accent-hover: #1d4ed8;
   --color-button-muted: #374151;
+  --color-highlight: #38bdf8;
 }
 
 @layer base {
@@ -19,6 +20,7 @@
     --color-button-accent: #fe8019;
     --color-button-accent-hover: #d65d0e;
     --color-button-muted: #3c3836;
+    --color-highlight: #fabd2f;
   }
 
   [data-theme='nord'] {
@@ -30,6 +32,7 @@
     --color-button-accent: #88c0d0;
     --color-button-accent-hover: #81a1c1;
     --color-button-muted: #4c566a;
+    --color-highlight: #8fbcbb;
   }
 
   [data-theme='solarized'] {
@@ -41,6 +44,7 @@
     --color-button-accent: #b58900;
     --color-button-accent-hover: #cb4b16;
     --color-button-muted: #073642;
+    --color-highlight: #268bd2;
   }
 
   [data-theme='night-owl'] {
@@ -52,6 +56,7 @@
     --color-button-accent: #7fdbca;
     --color-button-accent-hover: #5fcdc1;
     --color-button-muted: #1e2d3d;
+    --color-highlight: #c792ea;
   }
 
   [data-theme='one-dark'] {
@@ -63,6 +68,7 @@
     --color-button-accent: #61afef;
     --color-button-accent-hover: #528bff;
     --color-button-muted: #3e4451;
+    --color-highlight: #e06c75;
   }
 
   [data-theme='catppuccin'] {
@@ -74,6 +80,7 @@
     --color-button-accent: #89b4fa;
     --color-button-accent-hover: #74c7ec;
     --color-button-muted: #45475a;
+    --color-highlight: #f38ba8;
   }
 
   [data-theme='tokyo-night'] {
@@ -85,5 +92,6 @@
     --color-button-accent: #7aa2f7;
     --color-button-accent-hover: #6582d4;
     --color-button-muted: #3b4261;
+    --color-highlight: #bb9af7;
   }
 }

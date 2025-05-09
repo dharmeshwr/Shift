@@ -5,13 +5,14 @@ export const placesMock: Places = {
   xdgs: [
     {
       name: 'Documents',
+      directories: [],
       files: ['shiffman.pdf', 'profile.jpg', 'Dharmesh_Resume.pdf']
     },
-    { name: 'Downloads' },
-    { name: 'Pictures' },
-    { name: 'Videos' },
-    { name: 'Public' },
-    { name: 'Templates' }
+    { name: 'Downloads', directories: [] },
+    { name: 'Pictures', directories: [] },
+    { name: 'Videos', directories: [] },
+    { name: 'Public', directories: [] },
+    { name: 'Templates', directories: [] }
   ]
 }
 

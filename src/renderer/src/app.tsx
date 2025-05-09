@@ -1,15 +1,16 @@
-import { Content, RootLayout, Sidebar } from './components/app-layout'
+import { ContentLayout, RootLayout, SidebarLayout } from './components/app-layout'
 import { PingButton } from './components/ping-button'
+import { Sidebar } from './components/sidebar'
 import { ThemeSwitcher } from './components/theme-switcher'
 
 const App = (): React.ReactElement => {
   return (
     <RootLayout>
-      <Sidebar className="bg-background/95 text-foreground-base"> Sidebar </Sidebar>
-      <Content className="bg-background text-foreground-base relative">
-        Content
+      <SidebarLayout className="bg-background/95 text-foreground-base relative">
+        <Sidebar />
         <ThemeSwitcher />
-      </Content>
+      </SidebarLayout>
+      <ContentLayout className="bg-background text-foreground-base ">Content</ContentLayout>
       <PingButton message={'hello world'} />
     </RootLayout>
   )
