@@ -2,7 +2,7 @@ import { selectedDirectoryInTreeAtom } from '@renderer/store'
 import { cn } from '@renderer/utils'
 import { Directory } from '@shared/types'
 import { useAtom } from 'jotai'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoCaretDownOutline as DownArrow } from 'react-icons/io5'
 
 export const DirectoryTree = ({
@@ -12,8 +12,9 @@ export const DirectoryTree = ({
   dirs: Directory[]
   depth?: number
 }): React.ReactElement => {
-  const [openDirs, setOpenDirs] = useState<string[]>(['0.5_0'])
+  const [openDirs, setOpenDirs] = useState<string[]>([])
   const [selected, setSelected] = useAtom(selectedDirectoryInTreeAtom)
+  const { getUserConfiguration, updateUserConfiguration } = window.api
 
   const isDirectoryOpen = (key: string): boolean => {
     return openDirs.includes(key)
@@ -24,16 +25,31 @@ export const DirectoryTree = ({
   }
 
   const toggle = (dirKey: string): void => {
-    setOpenDirs((prev) =>
-      isDirectoryOpen(dirKey) ? prev.filter((openKey) => openKey !== dirKey) : [...prev, dirKey]
-    )
+    setOpenDirs((prev) => {
+      const newDirs = isDirectoryOpen(dirKey)
+        ? prev.filter((openKey) => openKey !== dirKey)
+        : [...prev, dirKey]
+
+      updateUserConfiguration({ sidebarOpenDirs: newDirs })
+      return newDirs
+    })
   }
+
+  useEffect(() => {
+    ; (async () => {
+      try {
+        const data = await getUserConfiguration()
+        if (data.sidebarOpenDirs) setOpenDirs(data.sidebarOpenDirs)
+      } catch {
+        setOpenDirs([])
+      }
+    })()
+  }, [])
 
   return (
     <div>
       {dirs.map((item, i) => {
         const key = `${depth}_${item.name}_${i}`
-        console.log(selected, key)
         return (
           <div key={key}>
             <button
