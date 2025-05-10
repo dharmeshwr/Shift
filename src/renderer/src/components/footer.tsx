@@ -1,6 +1,11 @@
-export const Footer = (): React.ReactElement => {
+import { ComponentProps } from 'react'
+
+export const Footer = (props: ComponentProps<'div'>): React.ReactElement => {
   return (
-    <div className="relative flex items-center justify-center px-4 bg-background-muted text-foreground-base border-t border-t-foreground-base/30">
+    <div
+      className="relative flex items-center justify-center px-4 bg-background-muted text-foreground-base border-t border-t-foreground-base/30"
+      {...props}
+    >
       <div className="flex justify-between w-full">
         <div>
           <span>7 items </span>

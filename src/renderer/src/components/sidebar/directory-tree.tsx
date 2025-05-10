@@ -2,16 +2,17 @@ import { selectedDirectoryInTreeAtom } from '@renderer/store'
 import { cn } from '@renderer/utils'
 import { Directory } from '@shared/types'
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { IoCaretDownOutline as DownArrow } from 'react-icons/io5'
 
 export const DirectoryTree = ({
   dirs,
-  depth = 0.5
+  depth = 0.5,
+  ...rest
 }: {
   dirs: Directory[]
   depth?: number
-}): React.ReactElement => {
+} & ComponentProps<'div'>): React.ReactElement => {
   const [openDirs, setOpenDirs] = useState<string[]>([])
   const [selected, setSelected] = useAtom(selectedDirectoryInTreeAtom)
   const { getUserConfiguration, updateUserConfiguration } = window.api
@@ -47,7 +48,7 @@ export const DirectoryTree = ({
   }, [])
 
   return (
-    <div>
+    <div {...rest}>
       {dirs.map((item, i) => {
         const key = `${depth}_${item.name}_${i}`
         return (

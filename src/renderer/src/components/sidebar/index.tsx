@@ -1,11 +1,11 @@
-import { Select, SelectContent, SelectItem, SelectTrigger } from './select'
+import { Select, SelectContent, SelectItem, SelectTrigger } from '../ui/select'
 import { SidebarView } from '@shared/types'
-import { useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { Places } from './places'
 import { DirectoryTree } from './directory-tree'
 import { directoryTreeMock } from '@renderer/store/mocks'
 
-export const Sidebar = (): React.ReactElement => {
+export const Sidebar = (props: ComponentProps<'div'>): React.ReactElement => {
   const [view, setView] = useState<SidebarView>(SidebarView.Places)
   const { getUserConfiguration, updateUserConfiguration } = window.api
 
@@ -26,7 +26,7 @@ export const Sidebar = (): React.ReactElement => {
   }, [])
 
   return (
-    <div className="p-2">
+    <div className="p-2" {...props}>
       <Select selectedValue={view} onChange={(val) => updateView(val)}>
         <SelectTrigger placeholder={view} />
         <SelectContent>

@@ -1,4 +1,5 @@
 import { ContentLayout, RootLayout, SidebarLayout } from './components/app-layout'
+import { Content } from './components/content'
 import { Footer } from './components/footer'
 import { Header } from './components/header'
 import { Sidebar } from './components/sidebar'
@@ -15,7 +16,9 @@ const App = (): React.ReactElement => {
           <Sidebar />
           <ThemeSwitcher />
         </SidebarLayout>
-        <ContentLayout className="bg-background text-foreground-base ">Content</ContentLayout>
+        <ContentLayout className="bg-background text-foreground-base ">
+          <Content />
+        </ContentLayout>
       </div>
 
       <Footer />

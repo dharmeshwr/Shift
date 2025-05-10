@@ -1,3 +1,4 @@
 import { atom } from 'jotai'
 
-export const selectedDirectoryInTreeAtom = atom<string>('0.5_0')
+export const selectedDirectoryInTreeAtom = atom<string>('')
+export const selectedItemInContentAtom = atom<string>('')

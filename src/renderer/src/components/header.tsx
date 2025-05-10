@@ -1,13 +1,22 @@
 import { IoChevronForward as Next, IoChevronBack as Back } from 'react-icons/io5'
 import { FaHistory as History } from 'react-icons/fa'
 import { BiHomeAlt as Home } from 'react-icons/bi'
+import { ComponentProps } from 'react'
 
-export const Header = (): React.ReactElement => {
+export const Header = (props: ComponentProps<'div'>): React.ReactElement => {
   return (
-    <div className="relative flex  items-center justify-center bg-background-muted text-foreground-base border-b border-b-foreground-base/30 py-1">
-
+    <div
+      className="relative flex  items-center justify-center bg-background-muted text-foreground-base border-b border-b-foreground-base/30 py-1"
+      {...props}
+    >
       <span className="bg-background border rounded-md border-foreground-base/30 w-1/3 min-w-96">
-        <input type="text" className="px-3" value="/home/ninjafire" />
+        <input
+          type="text"
+          className="px-3 w-full"
+          value="/home/ninjafire"
+          spellCheck={false}
+          onChange={() => { }}
+        />
       </span>
 
       <div className="flex items-center absolute left-0 gap-2 px-4">
