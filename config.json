@@ -1,5 +1,5 @@
 {
-  "sidebarView": "Directory Tree",
+  "sidebarView": "Places",
   "sidebarOpenDirs": [
     "0.5_ninjafire_0",
     "0.5_/_1",
@@ -9,5 +9,5 @@
     "1.5_mnt_6",
     "1.5_boot_1"
   ],
-  "theme": "catppuccin"
+  "theme": "gruvbox"
 }
