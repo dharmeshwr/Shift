@@ -3,25 +3,23 @@ import { Content } from './components/content'
 import { Footer } from './components/footer'
 import { Header } from './components/header'
 import { Sidebar } from './components/sidebar'
-import { ThemeSwitcher } from './components/theme-switcher'
 
 const App = (): React.ReactElement => {
   return (
     <RootLayout>
-      <Header />
+      <Header className="py-1 bg-background-muted text-foreground-base border-b border-b-foreground-base/30" />
 
       {/* Main area */}
       <div className="flex h-full relative">
         <SidebarLayout className="bg-background/95 text-foreground-base relative">
           <Sidebar />
-          <ThemeSwitcher />
         </SidebarLayout>
-        <ContentLayout className="bg-background text-foreground-base ">
+        <ContentLayout className="bg-background text-foreground-base relative">
           <Content />
         </ContentLayout>
       </div>
 
-      <Footer />
+      <Footer className="px-4 bg-background-muted text-foreground-base border-t border-t-foreground-base/30" />
     </RootLayout>
   )
 }

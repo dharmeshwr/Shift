@@ -2,7 +2,12 @@
   "sidebarView": "Directory Tree",
   "sidebarOpenDirs": [
     "0.5_ninjafire_0",
-    "1.5_Downloads_2"
+    "0.5_/_1",
+    "2.5_grub_1",
+    "3.5_locale_1",
+    "3.5_themes_2",
+    "1.5_mnt_6",
+    "1.5_boot_1"
   ],
-  "theme": ""
+  "theme": "catppuccin"
 }

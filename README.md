@@ -2,7 +2,7 @@
 A file manager built on electron
 
 ## Todos
-- Wire Up the UI - 70% done
+- ~Wire Up the UI - 100% done~
 - Sidebar
   - Shows places like home, desktopm trash and XDG base dirs.
   - Shows directory tree
@@ -10,6 +10,7 @@ A file manager built on electron
 
 - Content
   - Multiple layout options (grid, list)
+  - Add breadcrumbs
 
 - Context Menu
   - on selection

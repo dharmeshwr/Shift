@@ -33,7 +33,7 @@ export const ThemeSwitcher = (): React.ReactElement => {
   }, [])
 
   return (
-    <div className="absolute bottom-0 right-0 border-t border-l rounded-tl border-foreground-base/30">
+    <div className="absolute bottom-full right-0 border-t border-l rounded-tl border-foreground-base/30">
       <select className="bg-background-muted w-fit" value={theme} onChange={handleChange}>
         <option value={Theme.Default}>Default</option>
         <option value={Theme.Gruvbox}>Gruvbox</option>

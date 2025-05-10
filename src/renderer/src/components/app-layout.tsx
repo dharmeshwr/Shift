@@ -7,7 +7,7 @@ export const RootLayout = ({
   ...rest
 }: ComponentProps<'main'>): ReactElement => {
   return (
-    <main className={cn('flex flex-col h-screen', className)} {...rest}>
+    <main className={cn('flex flex-col h-screen overflow-hidden', className)} {...rest}>
       {children}
     </main>
   )
@@ -19,7 +19,7 @@ export const SidebarLayout = ({
   ...rest
 }: ComponentProps<'aside'>): ReactElement => {
   return (
-    <aside className={cn('w-1/3 max-w-[400px] hidden md:block overflow-auto', className)} {...rest}>
+    <aside className={cn('w-1/3 max-w-[400px] hidden md:block', className)} {...rest}>
       {children}
     </aside>
   )

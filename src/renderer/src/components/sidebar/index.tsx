@@ -26,20 +26,25 @@ export const Sidebar = (props: ComponentProps<'div'>): React.ReactElement => {
   }, [])
 
   return (
-    <div className="p-2" {...props}>
-      <Select selectedValue={view} onChange={(val) => updateView(val)}>
-        <SelectTrigger placeholder={view} />
-        <SelectContent>
-          <SelectItem value={SidebarView.Places}>{SidebarView.Places}</SelectItem>
-          <SelectItem value={SidebarView.DirectoryTree}>{SidebarView.DirectoryTree}</SelectItem>
-        </SelectContent>
-      </Select>
-      {view === SidebarView.Places && <Places />}
-      {view === SidebarView.DirectoryTree && (
-        <div className="py-1.5">
-          <DirectoryTree dirs={directoryTreeMock} />
+    <div className="flex flex-col h-full p-2 relative" {...props}>
+      {/* view changer */}
+      <div className="z-10">
+        <Select selectedValue={view} onChange={(val) => updateView(val)}>
+          <SelectTrigger placeholder={view} />
+          <SelectContent>
+            <SelectItem value={SidebarView.Places}>{SidebarView.Places}</SelectItem>
+            <SelectItem value={SidebarView.DirectoryTree}>{SidebarView.DirectoryTree}</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* view */}
+      <div className="flex flex-col overflow-hidden">
+        <div className="overflow-scroll pb-24 pt-2">
+          {view === SidebarView.Places && <Places />}
+          {view === SidebarView.DirectoryTree && <DirectoryTree dirs={directoryTreeMock} />}
         </div>
-      )}
+      </div>
     </div>
   )
 }

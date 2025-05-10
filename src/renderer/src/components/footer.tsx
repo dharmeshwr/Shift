@@ -1,14 +1,16 @@
+import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
+import { ThemeSwitcher } from './theme-switcher'
 
-export const Footer = (props: ComponentProps<'div'>): React.ReactElement => {
+export const Footer = ({ className, ...rest }: ComponentProps<'div'>): React.ReactElement => {
   return (
     <div
-      className="relative flex items-center justify-center px-4 bg-background-muted text-foreground-base border-t border-t-foreground-base/30"
-      {...props}
+      className={cn('absolute bottom-0 w-full flex items-center justify-center', className)}
+      {...rest}
     >
       <div className="flex justify-between w-full">
         <div>
-          <span>7 items </span>
+          <span>6 items </span>
           <span>(40 hidden)</span>
         </div>
 
@@ -17,6 +19,8 @@ export const Footer = (props: ComponentProps<'div'>): React.ReactElement => {
           <span>(Total: 170.0 GiB)</span>
         </div>
       </div>
+
+      <ThemeSwitcher />
     </div>
   )
 }

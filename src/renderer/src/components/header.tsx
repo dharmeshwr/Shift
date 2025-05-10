@@ -2,13 +2,11 @@ import { IoChevronForward as Next, IoChevronBack as Back } from 'react-icons/io5
 import { FaHistory as History } from 'react-icons/fa'
 import { BiHomeAlt as Home } from 'react-icons/bi'
 import { ComponentProps } from 'react'
+import { cn } from '@renderer/utils'
 
-export const Header = (props: ComponentProps<'div'>): React.ReactElement => {
+export const Header = ({ className, ...rest }: ComponentProps<'div'>): React.ReactElement => {
   return (
-    <div
-      className="relative flex  items-center justify-center bg-background-muted text-foreground-base border-b border-b-foreground-base/30 py-1"
-      {...props}
-    >
+    <div className={cn('relative flex items-center justify-center', className)} {...rest}>
       <span className="bg-background border rounded-md border-foreground-base/30 w-1/3 min-w-96">
         <input
           type="text"
