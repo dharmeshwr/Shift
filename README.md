@@ -5,8 +5,9 @@ A file manager built on electron
 - ~Wire Up the UI - 100% done~
 - Sidebar
   - Shows places like home, desktop, trash and XDG base dirs.
-  - Shows directory tree
-  - Presistance
+  - ~Shows directory tree~
+  - ~Toggle hidden files~
+  - ~Presistant view~
 
 - Content
   - Multiple layout options (grid, list)
@@ -30,7 +31,7 @@ A file manager built on electron
 
 - Header
   - home, foward and backward button
-  - location bar; go to the path in location bar
+  - location bar; go to the path in location bar; Ctrl + l to focus
   - history
 
 - Footer

@@ -1,13 +1,9 @@
 {
-  "sidebarView": "Places",
+  "sidebarView": "Directory Tree",
+  "theme": "default",
   "sidebarOpenDirs": [
-    "0.5_ninjafire_0",
-    "0.5_/_1",
-    "2.5_grub_1",
-    "3.5_locale_1",
-    "3.5_themes_2",
-    "1.5_mnt_6",
-    "1.5_boot_1"
+    "*-0",
+    "*-0-13-1-4-0"
   ],
-  "theme": "gruvbox"
+  "showHidden": true
 }

@@ -1,5 +1,6 @@
 import { IpcMain, Notification } from 'electron/main'
 import { getUserConfiguration, updateUserConfiguration } from './config'
+import { getDirectoryTreeData, getUserDirectoryAndFiles } from './directory'
 
 function sendIPCNotification(...args: Array<unknown>): void {
   const NOTIFICATION_TITLE = 'PING PONG'
@@ -14,4 +15,7 @@ export function setupIPC(ipcMain: IpcMain): void {
 
   ipcMain.handle('config:get', () => getUserConfiguration())
   ipcMain.handle('config:update', (_, content) => updateUserConfiguration(content))
+
+  ipcMain.handle('fs:get-list', (_, path) => getUserDirectoryAndFiles(path))
+  ipcMain.handle('fs:get-tree', () => getDirectoryTreeData())
 }

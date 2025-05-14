@@ -1,6 +1,7 @@
 import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
 import { ThemeSwitcher } from './theme-switcher'
+import { HiddenLabel } from './ui/hidden-label'
 
 export const Footer = ({ className, ...rest }: ComponentProps<'div'>): React.ReactElement => {
   return (
@@ -13,6 +14,8 @@ export const Footer = ({ className, ...rest }: ComponentProps<'div'>): React.Rea
           <span>6 items </span>
           <span>(40 hidden)</span>
         </div>
+
+        <HiddenLabel />
 
         <div>
           <span>Free space: 115.7 GiB </span>

@@ -1,4 +1,5 @@
 import { fileEncoding } from '../../shared/constants'
+import { Config } from '../../shared/types'
 import { app } from 'electron'
 import { readFileSync, statSync } from 'fs'
 import { ensureFile, writeFileSync } from 'fs-extra'
@@ -30,7 +31,7 @@ if (isDev) {
   }
 }
 
-async function getUserConfiguration(): Promise<object> {
+async function getUserConfiguration(): Promise<Config | null> {
   try {
     await ensureFile(configFile)
     const rawFileData = readFileSync(configFile, { encoding: fileEncoding })
@@ -38,9 +39,7 @@ async function getUserConfiguration(): Promise<object> {
     return fileData
   } catch (error) {
     console.log('Error while getting configuration', error)
-    return {
-      error: 'Something wrong in your configuration'
-    }
+    return null
   }
 }
 

@@ -19,6 +19,12 @@ type SelectContextType = {
   setIsOpen: (open: boolean) => void
 }
 
+type SelectProps<T extends string> = {
+  children: ReactNode
+  selectedValue: T
+  onChange: (value: T) => void
+}
+
 const SelectContext = createContext<SelectContextType | null>(null)
 
 const useSelect = (): SelectContextType => {
@@ -27,23 +33,19 @@ const useSelect = (): SelectContextType => {
   return ctx
 }
 
-const Select = ({
+const Select = <T extends string>({
   children,
   selectedValue,
   onChange,
   ...rest
-}: {
-  children: ReactNode
-  selectedValue: string
-  onChange: (value: string) => void
-} & ComponentProps<'div'>): React.ReactElement => {
+}: SelectProps<T>): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
   const toggle = (): void => setIsOpen((prev) => !prev)
   const select = (value: string): void => {
     setIsOpen(false)
-    onChange(value)
+    onChange(value as T)
   }
 
   useEffect(() => {

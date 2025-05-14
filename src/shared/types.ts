@@ -1,12 +1,19 @@
-export type Directory = {
+export interface IDirectory {
   name: string
-  directories: Directory[]
+  path: string
+  directories: IDirectory[]
   files?: string[]
 }
 
-export type Places = {
+export interface IPlaces {
   main: string[]
-  xdgs: Directory[]
+  xdgs: IDirectory[]
+}
+
+export type Config = {
+  sidebarView?: SidebarView
+  theme?: string
+  showHidden?: string
 }
 
 export enum SidebarView {
@@ -15,7 +22,7 @@ export enum SidebarView {
 }
 
 export enum Theme {
-  Default = '',
+  Default = 'default',
   Gruvbox = 'gruvbox',
   Catppuccin = 'catppuccin',
   TokyoNight = 'tokyo-night',

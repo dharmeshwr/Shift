@@ -1,10 +1,13 @@
-import { contextBridge } from 'electron'
-import { ipcRenderer } from 'electron/renderer'
+import { contextBridge, ipcRenderer } from 'electron'
 
 const api = {
   ping: (...args: Array<unknown>) => ipcRenderer.invoke('ping', ...args),
+
   getUserConfiguration: () => ipcRenderer.invoke('config:get'),
-  updateUserConfiguration: (content: object) => ipcRenderer.invoke('config:update', content)
+  updateUserConfiguration: (content: object) => ipcRenderer.invoke('config:update', content),
+
+  getUserDirectoryAndFiles: (path: string) => ipcRenderer.invoke('fs:get-list', path),
+  getDirectoryTreeData: () => ipcRenderer.invoke('fs:get-tree')
 }
 
 if (!process.contextIsolated) {
