@@ -8,8 +8,8 @@ export const getUserDirectoryAndFiles = async (path: string): Promise<IDirectory
 
   const results = await Promise.all(
     data.map(async (item) => {
-      const isFile = (await stat(`${path}/${item}`)).isFile()
-      return { name: item, isFile }
+      const isDirectory = (await stat(`${path}/${item}`)).isDirectory()
+      return { name: item, isDirectory }
     })
   )
 
@@ -17,8 +17,16 @@ export const getUserDirectoryAndFiles = async (path: string): Promise<IDirectory
   const files: string[] = []
 
   results.forEach((item) => {
-    if (item.isFile) files.push(item.name)
-    else directories.push({ name: item.name, path: `${path}/${item.name}`, directories: [] })
+    if (item.isDirectory) {
+      directories.push({
+        name: item.name,
+        path: path === '/' ? `${path}${item.name}` : `${path}/${item.name}`,
+        directories: [],
+        files: []
+      })
+    } else {
+      files.push(item.name)
+    }
   })
 
   const name = path.split('/').pop()
@@ -30,5 +38,5 @@ export const getDirectoryTreeData = async (): Promise<IDirectory> => {
   const home = await getUserDirectoryAndFiles(homeDirectory)
   const rootDir = '/'
   const root = await getUserDirectoryAndFiles(rootDir)
-  return { name: '*', path: '*', directories: [home, root] }
+  return { name: '*', path: '*', directories: [home, root], files: [] }
 }

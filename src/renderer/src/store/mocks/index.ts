@@ -1,64 +1,69 @@
-import { Directory, Places } from '@shared/types'
+import { IDirectory, IPlaces } from '@shared/types'
 
-export const placesMock: Places = {
+export const EmptyDirectory: IDirectory = {
+  name: '*',
+  path: '*',
+  directories: [],
+  files: []
+}
+
+export const placesMock: IPlaces = {
   main: ['Home', 'Desktop', 'Trash Can', 'Applications'],
   xdgs: [
     {
       name: 'Documents',
+      path: '',
       directories: [],
       files: ['shiffman.pdf', 'profile.jpg', 'Dharmesh_Resume.pdf']
     },
-    { name: 'Downloads', directories: [] },
-    { name: 'Pictures', directories: [] },
-    { name: 'Videos', directories: [] },
-    { name: 'Public', directories: [] },
-    { name: 'Templates', directories: [] }
+    { name: 'Downloads', path: '', directories: [] },
+    { name: 'Pictures', path: '', directories: [] },
+    { name: 'Videos', path: '', directories: [] },
+    { name: 'Public', path: '', directories: [] },
+    { name: 'Templates', path: '', directories: [] }
   ]
 }
 
-export const directoryTreeMock: Directory[] = [
+export const directoryTreeMock: IDirectory[] = [
   {
     name: 'ninjafire',
+    path: '',
     directories: [
-      { name: 'Desktop', directories: [] },
-      { name: 'Documents', directories: [] },
-      {
-        name: 'Downloads',
-        directories: [
-          { name: 'funnelSans', directories: [] },
-          { name: 'Telegram_Desktop', directories: [] }
-        ]
-      },
-      { name: 'Obsidian', directories: [] },
-      { name: 'Pictures', directories: [] },
-      { name: 'Workspace', directories: [] }
-    ]
+      { name: 'Desktop', path: '', directories: [] },
+      { name: 'Documents', path: '', directories: [] },
+      { name: 'Obsidian', path: '', directories: [] },
+      { name: 'Pictures', path: '', directories: [] },
+      { name: 'Workspace', path: '', directories: [] }
+    ],
   },
   {
     name: '/',
+    path: '',
     directories: [
-      { name: 'bin', directories: [] },
+      { name: 'bin', path: '', directories: [] },
       {
         name: 'boot',
+        path: '',
         directories: [
-          { name: 'EFI', directories: [] },
+          { name: 'EFI', path: '', directories: [] },
           {
             name: 'grub',
             directories: [
-              { name: 'fonts', directories: [] },
-              { name: 'locale', directories: [] },
-              { name: 'themes', directories: [] }
-            ]
+              { name: 'fonts', path: '', directories: [] },
+              { name: 'locale', path: '', directories: [] },
+              { name: 'themes', path: '', directories: [] }
+            ],
+            path: '',
           },
-          { name: 'System Volume Information', directories: [] }
+          { name: 'System Volume Information', path: '', directories: [] }
         ]
       },
-      { name: 'dev', directories: [] },
-      { name: 'etc', directories: [] },
-      { name: 'home', directories: [] },
-      { name: 'lib', directories: [] },
-      { name: 'mnt', directories: [] },
-      { name: 'opt', directories: [] }
+      { name: 'dev', path: '', directories: [] },
+      { name: 'etc', path: '', directories: [] },
+      { name: 'home', path: '', directories: [] },
+      { name: 'lib', path: '', directories: [] },
+      { name: 'mnt', path: '', directories: [] },
+      { name: 'opt', path: '', directories: [] }
     ]
   }
 ]

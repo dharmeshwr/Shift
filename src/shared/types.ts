@@ -2,7 +2,7 @@ export interface IDirectory {
   name: string
   path: string
   directories: IDirectory[]
-  files?: string[]
+  files: string[]
 }
 
 export interface IPlaces {

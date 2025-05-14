@@ -1,17 +1,13 @@
-import { cn } from '@renderer/utils'
+import { cn, isHiddenItem } from '@renderer/utils'
 import { keyDelimiter } from '@shared/constants'
 import { IDirectory } from '@shared/types'
 import { SetStateAction, useAtom } from 'jotai'
 import { ComponentProps, useLayoutEffect, useState } from 'react'
 import { IoCaretDownOutline as Arrow } from 'react-icons/io5'
-import {
-  directoryTreeAtom,
-  selectedDirectoryInTreeAtom,
-  showHiddenItemsAtom
-} from '@renderer/store'
+import { directoriesDataAtom, selectedDirectoryKeyAtom, showHiddenItemsAtom } from '@renderer/store'
 
 export const DirectoryTree = (props: ComponentProps<'div'>): React.ReactElement => {
-  const { directoryTree, setDirectoryTree, setShowHiddenItems } = useDirectoryTree()
+  const { directoriesData, setDirectoriesData, setShowHiddenItems } = useDirectoryTree()
   const { getDirectoryTreeData, getUserConfiguration, updateUserConfiguration } = window.api
 
   useLayoutEffect(() => {
@@ -21,7 +17,7 @@ export const DirectoryTree = (props: ComponentProps<'div'>): React.ReactElement 
         if (config && config.showHidden) setShowHiddenItems(config.showHidden)
 
         const data = await getDirectoryTreeData()
-        setDirectoryTree(data)
+        setDirectoriesData(data)
       } catch {
         //ignore
       }
@@ -48,7 +44,7 @@ export const DirectoryTree = (props: ComponentProps<'div'>): React.ReactElement 
 
   return (
     <div {...props}>
-      <Directory dirs={directoryTree?.directories} depth={0} parentKey="*" />
+      <Directory dirs={directoriesData?.directories} depth={0} parentKey="*" />
     </div>
   )
 }
@@ -69,9 +65,8 @@ export const Directory = ({
     <div>
       {dirs?.map((dir: IDirectory, index: number) => {
         const key = `${parentKey}${keyDelimiter}${index}`
-        const isHiddenDirectory = dir.name.startsWith('.')
 
-        if (isHiddenDirectory && !showHiddenItems) return null
+        if (isHiddenItem(dir.name) && !showHiddenItems) return null
 
         return (
           <div key={key}>
@@ -119,8 +114,8 @@ export const Directory = ({
 }
 
 function useDirectoryTree(): {
-  directoryTree: IDirectory
-  setDirectoryTree: SetAtom<[SetStateAction<IDirectory | null>], void>
+  directoriesData: IDirectory
+  setDirectoriesData: SetAtom<[SetStateAction<IDirectory | null>], void>
   showHiddenItems: boolean
   setShowHiddenItems: SetAtom<[SetStateAction<boolean>], void>
   select: (key: string, path: string) => Promise<void>
@@ -130,8 +125,8 @@ function useDirectoryTree(): {
 } {
   const [openDirs, setOpenDirs] = useState<string[]>(['*-0'])
 
-  const [selectedDirectory, setSelectedDirectory] = useAtom(selectedDirectoryInTreeAtom)
-  const [directoryTree, setDirectoryTree] = useAtom(directoryTreeAtom)
+  const [selectedDirectory, setSelectedDirectory] = useAtom(selectedDirectoryKeyAtom)
+  const [directoriesData, setDirectoriesData] = useAtom(directoriesDataAtom)
   const [showHiddenItems, setShowHiddenItems] = useAtom(showHiddenItemsAtom)
 
   const { updateUserConfiguration, getUserDirectoryAndFiles } = window.api
@@ -160,23 +155,26 @@ function useDirectoryTree(): {
   const getData = async (key: string, path: string): Promise<void> => {
     try {
       const data = await getUserDirectoryAndFiles(path)
-      const pathWithIndex = key.split(keyDelimiter).splice(1).map(Number)
+      console.log(data)
+      const pathFromIndex = key.split(keyDelimiter).splice(1).map(Number)
 
-      setDirectoryTree((prev) => {
+      setDirectoriesData((prev) => {
         if (!prev) return prev
 
         const clone = structuredClone(prev)
         let node = clone?.directories
 
-        for (let i = 0; i < pathWithIndex.length; i++) {
-          const idx = pathWithIndex[i]
+        for (let i = 0; i < pathFromIndex.length; i++) {
+          const idx = pathFromIndex[i]
 
-          if (i == pathWithIndex.length - 1) {
+          if (i == pathFromIndex.length - 1) {
             node[idx].directories = data.directories
+            node[idx].files = data.files
           } else {
             node = node[idx].directories
           }
         }
+        console.log(clone)
         return clone
       })
     } catch (error) {
@@ -185,8 +183,8 @@ function useDirectoryTree(): {
   }
 
   return {
-    directoryTree,
-    setDirectoryTree,
+    directoriesData,
+    setDirectoriesData,
     showHiddenItems,
     setShowHiddenItems,
     select,
