@@ -1,5 +1,5 @@
 import { Theme } from '@shared/types'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
 export const ThemeSwitcher = (): React.ReactElement => {
   const [theme, setTheme] = useState(Theme.Default)
@@ -21,28 +21,26 @@ export const ThemeSwitcher = (): React.ReactElement => {
     updateUserConfiguration({ theme: event.target.value })
   }
 
-  useEffect(() => {
-    ; (async () => {
+  useLayoutEffect(() => {
+    const fetchConfig = async (): Promise<void> => {
       try {
-        const data = await getUserConfiguration()
-        updateTheme(data.theme)
+        const config = await getUserConfiguration()
+        if (config && config.theme) updateTheme(config.theme)
       } catch {
         updateTheme(Theme.Default)
       }
-    })()
+    }
+    fetchConfig()
   }, [])
 
   return (
     <div className="absolute bottom-full right-0 border-t border-l rounded-tl border-foreground-base/30">
       <select className="bg-background-muted w-fit" value={theme} onChange={handleChange}>
-        <option value={Theme.Default}>Default</option>
-        <option value={Theme.Gruvbox}>Gruvbox</option>
-        <option value={Theme.Catppuccin}>Catppuccin</option>
-        <option value={Theme.TokyoNight}>Tokyo Night</option>
-        <option value={Theme.NightOwl}>Night Owl</option>
-        <option value={Theme.OneDark}>One Dark</option>
-        <option value={Theme.Nord}>Nord</option>
-        <option value={Theme.Solarized}>Solarized</option>
+        {Object.entries(Theme).map(([key, value], i) => (
+          <option key={i} value={value}>
+            {key}
+          </option>
+        ))}
       </select>
     </div>
   )
