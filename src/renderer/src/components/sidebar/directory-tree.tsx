@@ -1,10 +1,15 @@
-import { cn, isHiddenItem } from '@renderer/utils'
+import { cn, isHiddenItem, updateDirectoriesData } from '@renderer/utils'
 import { keyDelimiter } from '@shared/constants'
 import { IDirectory } from '@shared/types'
 import { SetStateAction, useAtom } from 'jotai'
-import { ComponentProps, useLayoutEffect, useState } from 'react'
+import { ComponentProps, useLayoutEffect } from 'react'
 import { IoCaretDownOutline as Arrow } from 'react-icons/io5'
-import { directoriesDataAtom, selectedDirectoryKeyAtom, showHiddenItemsAtom } from '@renderer/store'
+import {
+  directoriesDataAtom,
+  openDirsAtom,
+  selectedDirectoryKeyAtom,
+  showHiddenItemsAtom
+} from '@renderer/store'
 
 export const DirectoryTree = (props: ComponentProps<'div'>): React.ReactElement => {
   const { directoriesData, setDirectoriesData, setShowHiddenItems } = useDirectoryTree()
@@ -123,63 +128,30 @@ function useDirectoryTree(): {
   isDirectoryOpen: (key: string) => boolean
   isDirectorySelected: (key: string) => boolean
 } {
-  const [openDirs, setOpenDirs] = useState<string[]>(['*-0'])
+  const [openDirs, setOpenDirs] = useAtom(openDirsAtom)
 
   const [selectedDirectory, setSelectedDirectory] = useAtom(selectedDirectoryKeyAtom)
   const [directoriesData, setDirectoriesData] = useAtom(directoriesDataAtom)
   const [showHiddenItems, setShowHiddenItems] = useAtom(showHiddenItemsAtom)
-
-  const { updateUserConfiguration, getUserDirectoryAndFiles } = window.api
 
   const isDirectoryOpen = (key: string): boolean => openDirs.includes(key)
 
   const isDirectorySelected = (key: string): boolean => selectedDirectory === key
 
   const toggle = async (key: string, path: string): Promise<void> => {
-    await getData(key, path)
+    await updateDirectoriesData(key, path, setDirectoriesData)
     setOpenDirs((prev) => {
       const newDirs = isDirectoryOpen(key)
         ? prev.filter((openKey) => openKey !== key)
         : [...prev, key]
 
-      updateUserConfiguration({ sidebarOpenDirs: newDirs })
       return newDirs
     })
   }
 
   const select = async (key: string, path: string): Promise<void> => {
     setSelectedDirectory(key)
-    await getData(key, path)
-  }
-
-  const getData = async (key: string, path: string): Promise<void> => {
-    try {
-      const data = await getUserDirectoryAndFiles(path)
-      console.log(data)
-      const pathFromIndex = key.split(keyDelimiter).splice(1).map(Number)
-
-      setDirectoriesData((prev) => {
-        if (!prev) return prev
-
-        const clone = structuredClone(prev)
-        let node = clone?.directories
-
-        for (let i = 0; i < pathFromIndex.length; i++) {
-          const idx = pathFromIndex[i]
-
-          if (i == pathFromIndex.length - 1) {
-            node[idx].directories = data.directories
-            node[idx].files = data.files
-          } else {
-            node = node[idx].directories
-          }
-        }
-        console.log(clone)
-        return clone
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    await updateDirectoriesData(key, path, setDirectoriesData)
   }
 
   return {

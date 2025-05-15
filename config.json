@@ -3,7 +3,7 @@
   "theme": "night-owl",
   "sidebarOpenDirs": [
     "*-0",
-    "*-0-24-0"
+    "*-0-27"
   ],
-  "showHidden": true
+  "showHidden": false
 }

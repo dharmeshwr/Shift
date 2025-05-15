@@ -1,27 +1,43 @@
-import { directoriesDataAtom, selectedDirectoryKeyAtom, showHiddenItemsAtom } from '@renderer/store'
-import { cn, isHiddenItem } from '@renderer/utils'
-import { useAtom, useAtomValue } from 'jotai'
+import {
+  directoriesDataAtom,
+  openDirsAtom,
+  selectedDirectoryKeyAtom,
+  showHiddenItemsAtom
+} from '@renderer/store'
+import { cn, isHiddenItem, updateDirectoriesData } from '@renderer/utils'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { ComponentProps, useEffect, useState } from 'react'
 import { FiFolder as Folder } from 'react-icons/fi'
 import { FiFile as File } from 'react-icons/fi'
 import { IDirectory } from '@shared/types'
 import { keyDelimiter } from '@shared/constants'
 import { EmptyDirectory } from '@renderer/store/mocks'
-import { truncate } from '@renderer/utils/index'
 
 export const Content = (props: ComponentProps<'div'>): React.ReactElement => {
   const [selectedItem, setSelectedItem] = useState('')
   const [currentDirData, setCurrentDirData] = useState(EmptyDirectory)
 
   const [selectedDirectoryKey, setSelectedDirectoryKey] = useAtom(selectedDirectoryKeyAtom)
+  const [openDirs, setOpenDirs] = useAtom(openDirsAtom)
+  const setDirectoriesData = useSetAtom(directoriesDataAtom)
   const directoriesData = useAtomValue(directoriesDataAtom)
   const showHiddenItem = useAtomValue(showHiddenItemsAtom)
 
   const isSelected = (key: string): boolean => key == selectedItem
 
-  const handleDoubleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    console.log('double click bitch')
-    console.log(event.currentTarget.getAttribute(''))
+  const handleDoubleClick = (key: string, type: string, path?: string): void => {
+    if (type === 'file' || !path) return
+
+    updateDirectoriesData(key, path, setDirectoriesData)
+    setSelectedDirectoryKey(key)
+    setOpenDirs((prev) => {
+      const newDirs = openDirs.includes(key)
+        ? prev.filter((openKey) => openKey !== key)
+        : [...prev, key]
+
+      return newDirs
+    })
+
   }
 
   useEffect(() => {
@@ -54,15 +70,15 @@ export const Content = (props: ComponentProps<'div'>): React.ReactElement => {
             key={key}
             icon={File}
             label={item}
-            isSelected={isSelected(`file${keyDelimiter}${i}`)}
-            onClick={() => setSelectedItem(`file${keyDelimiter}${i}`)}
-            onDoubleClick={handleDoubleClick}
+            isSelected={isSelected(key)}
+            onClick={() => setSelectedItem(key)}
+            onDoubleClick={() => handleDoubleClick(key, 'file')}
           />
         )
       })}
 
       {currentDirData?.directories.map((item: IDirectory, i: number) => {
-        const key = `dir${keyDelimiter}${i}`
+        const key = `${selectedDirectoryKey}${keyDelimiter}${i}`
 
         if (isHiddenItem(item.name) && !showHiddenItem) return null
         return (
@@ -70,9 +86,9 @@ export const Content = (props: ComponentProps<'div'>): React.ReactElement => {
             key={key}
             icon={Folder}
             label={item.name}
-            isSelected={isSelected(`dir${keyDelimiter}${i}`)}
-            onClick={() => setSelectedItem(`dir${keyDelimiter}${i}`)}
-            onDoubleClick={handleDoubleClick}
+            isSelected={isSelected(key)}
+            onClick={() => setSelectedItem(key)}
+            onDoubleClick={() => handleDoubleClick(key, 'dir', item.path)}
           />
         )
       })}
@@ -106,6 +122,6 @@ const ItemButton = ({
     )}
   >
     <Icon className="size-1/2 flex-1 self-center" />
-    <span className={cn(!isSelected && 'truncate', 'overflow-auto break-words')}>{label}</span>
+    <span className={cn('truncate', 'overflow-auto break-words')}>{label}</span>
   </button>
 )
