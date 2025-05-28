@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge'
 import { ClassValue, clsx } from 'clsx'
 import { keyDelimiter } from '@shared/constants'
-import { IDirectory } from '@shared/types'
+import { IDirectory, NavigationHistory } from '@shared/types'
 import { SetStateAction } from 'jotai'
 
 export const cn = (...classes: ClassValue[]): string => twMerge(clsx(...classes))
@@ -46,4 +46,42 @@ export const updateDirectoriesData = async (
   } catch (error) {
     console.log(error)
   }
+}
+
+export const updateNavigationHistory = (
+  updatedkey: string,
+  setNavigationHistory: SetAtom<[SetStateAction<NavigationHistory | null>], void>
+): void => {
+  const { saveNavigationHistory } = window.api
+  setNavigationHistory((prev: NavigationHistory) => {
+    const { forward, backward, current } = prev
+    const data = {
+      backward: [...backward, current],
+      current: updatedkey,
+      forward
+    }
+    console.log(data)
+    saveNavigationHistory(data)
+    return data
+  })
+}
+
+export const updateOpenDirs = (
+  key: string,
+  setOpenDirs: SetAtom<[SetStateAction<NavigationHistory | null>], void>
+): void => {
+  setOpenDirs((prev: string[]) => {
+    const alreadyOpen = prev.includes(key)
+    if (alreadyOpen) {
+      return prev.filter((openKey) => openKey !== key)
+    }
+
+    const newDirs = [...prev, key]
+
+    // edge case
+    const parentKey = key.slice(0, -2)
+    if (!prev.includes(parentKey)) newDirs.push(parentKey)
+
+    return newDirs
+  })
 }

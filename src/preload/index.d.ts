@@ -1,4 +1,4 @@
-import { IDirectory, Config } from '../shared/types'
+import { IDirectory, Config, NavigationHistory } from '../shared/types'
 
 declare global {
   interface Window {
@@ -10,6 +10,10 @@ declare global {
 
       getUserDirectoryAndFiles: (path: string) => Promise<IDirectory>
       getDirectoryTreeData: () => Promise<IDirectory>
+
+      getSavedNavigationHistory: () => Promise<NavigationHistory>
+      saveNavigationHistory: (data: NavigationHistory) => Promise<void>
+      getCurrent: () => Promise<string>
     }
   }
 }

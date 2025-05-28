@@ -10,6 +10,12 @@ export interface IPlaces {
   xdgs: IDirectory[]
 }
 
+export type NavigationHistory = {
+  backward: string[]
+  current: string
+  forward: string[]
+}
+
 export type Config = {
   sidebarView?: SidebarView
   theme?: string

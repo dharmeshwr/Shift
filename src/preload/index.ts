@@ -1,3 +1,4 @@
+import { NavigationHistory } from '@shared/types'
 import { contextBridge, ipcRenderer } from 'electron'
 
 const api = {
@@ -7,7 +8,11 @@ const api = {
   updateUserConfiguration: (content: object) => ipcRenderer.invoke('config:update', content),
 
   getUserDirectoryAndFiles: (path: string) => ipcRenderer.invoke('fs:get-list', path),
-  getDirectoryTreeData: () => ipcRenderer.invoke('fs:get-tree')
+  getDirectoryTreeData: () => ipcRenderer.invoke('fs:get-tree'),
+
+  getSavedNavigationHistory: () => ipcRenderer.invoke('navigation:get'),
+  saveNavigationHistory: (data: NavigationHistory) => ipcRenderer.invoke('navigation:save', data),
+  getCurrent: () => ipcRenderer.invoke('navigation:current')
 }
 
 if (!process.contextIsolated) {
