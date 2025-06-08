@@ -10,6 +10,7 @@ declare global {
 
       getUserDirectoryAndFiles: (path: string) => Promise<IDirectory>
       getDirectoryTreeData: () => Promise<IDirectory>
+      getDiskDetails: () => Promise<DiskSize | null>
 
       getSavedNavigationHistory: () => Promise<NavigationHistory>
       saveNavigationHistory: (data: NavigationHistory) => Promise<void>

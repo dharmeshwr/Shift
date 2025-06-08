@@ -2,13 +2,20 @@ export interface IDirectory {
   name: string
   path: string
   directories: IDirectory[]
-  files: string[]
+  files: IFile[]
+}
+
+export interface IFile {
+  name: string
+  size: string
 }
 
 export interface IPlaces {
   main: string[]
   xdgs: IDirectory[]
 }
+
+export type DiskSize = { total: string; free: string }
 
 export type NavigationHistory = {
   backward: string[]

@@ -1,9 +1,9 @@
 {
-  "sidebarView": "Directory Tree",
+  "sidebarView": "Places",
   "theme": "night-owl",
   "sidebarOpenDirs": [
     "*-0",
     "*-0-27"
   ],
-  "showHidden": false
+  "showHidden": true
 }

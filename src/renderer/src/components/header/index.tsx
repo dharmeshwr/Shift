@@ -1,7 +1,7 @@
 import { cn } from '@renderer/utils'
 import { ComponentProps } from 'react'
 import { BiHomeAlt as Home } from 'react-icons/bi'
-import { IoChevronBack as Back, IoChevronForward as Next } from 'react-icons/io5'
+import { IoChevronBack as Back, IoChevronForward as Next, IoAdd as Add } from 'react-icons/io5'
 import { useHeader } from './use-header'
 
 export const Header = ({ className, ...rest }: ComponentProps<'div'>): React.ReactElement => {
@@ -57,9 +57,11 @@ export const Header = ({ className, ...rest }: ComponentProps<'div'>): React.Rea
         </button>
       </div>
 
-      <div className="flex items-center absolute right-0 gap-2 px-4"> </div>
+      <div className="flex items-center absolute right-0 px-4  cursor-pointer">
+        <span className='rounded-full size-4 hover:bg-background/40 transition-colors'>
+          <Add size={18} />
+        </span>
+      </div>
     </div>
   )
 }
-
-

@@ -1,6 +1,8 @@
 import {
   currentDirDataAtom,
   navigationHistoryAtom,
+  openDirsAtom,
+  selectedContentItemAtom,
   selectedDirectoryKeyAtom
 } from '@renderer/store'
 import { homeDirectoryKey } from '@shared/constants'
@@ -20,10 +22,16 @@ interface UseHeaderReturn {
 }
 export const useHeader = (): UseHeaderReturn => {
   const InputRef = useRef<HTMLInputElement>(null)
+
   const setSelectedDirectoryKey = useSetAtom(selectedDirectoryKeyAtom)
+  const setSelectedContentItem = useSetAtom(selectedContentItemAtom)
+  const setOpenDirs = useSetAtom(openDirsAtom)
+  const setCurrentDirData = useSetAtom(currentDirDataAtom)
+
   const currentDirData = useAtomValue(currentDirDataAtom)
-  const [inputValue, setInputValue] = useState<string>(currentDirData?.path)
+
   const [navigationHistory, setNavigationHistory] = useAtom(navigationHistoryAtom)
+  const [inputValue, setInputValue] = useState<string>(currentDirData?.path)
 
   const handleBackward = (): void => {
     setNavigationHistory((prev) => {
@@ -32,7 +40,11 @@ export const useHeader = (): UseHeaderReturn => {
       const { forward, backward, current } = prev
       const newCurrent = backward.pop() as string
 
+      setSelectedContentItem('')
       setSelectedDirectoryKey(newCurrent)
+      setOpenDirs((prev) => {
+        return prev.filter((item) => item != current)
+      })
 
       return {
         backward,
@@ -49,6 +61,7 @@ export const useHeader = (): UseHeaderReturn => {
       const { forward, backward, current } = prev
       const [newCurrent, ...newForward] = forward // u can also use shift()
 
+      setSelectedContentItem('')
       setSelectedDirectoryKey(newCurrent)
 
       return {
@@ -64,7 +77,11 @@ export const useHeader = (): UseHeaderReturn => {
 
     setNavigationHistory((prev) => {
       const { forward, backward, current } = prev
+
+      setSelectedContentItem('')
       setSelectedDirectoryKey(homeDirectoryKey)
+      setOpenDirs([homeDirectoryKey])
+
       return {
         backward: [...backward, current],
         current: homeDirectoryKey,
@@ -73,8 +90,15 @@ export const useHeader = (): UseHeaderReturn => {
     })
   }
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (event: SubmitEvent): Promise<void> => {
+    event.preventDefault()
     InputRef.current?.blur()
+    try {
+      const data = await window.api.getUserDirectoryAndFiles(inputValue)
+      setCurrentDirData(data)
+    } catch (e) {
+      alert('Please enter a valid path')
+    }
   }
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import {
   directoriesDataAtom,
   navigationHistoryAtom,
   openDirsAtom,
+  selectedContentItemAtom,
   selectedDirectoryKeyAtom,
   showHiddenItemsAtom
 } from '@renderer/store'
@@ -10,7 +11,7 @@ import { updateDirectoriesData, updateNavigationHistory, updateOpenDirs } from '
 import { keyDelimiter } from '@shared/constants'
 import { IDirectory } from '@shared/types'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { Ref, useEffect, useRef } from 'react'
 
 interface UseContentReturn {
   currentDirData: IDirectory
@@ -19,9 +20,10 @@ interface UseContentReturn {
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>
   handleDoubleClick: (key: string, type: string, path?: string) => void
   selectedDirectoryKey: string
+  contentContainerRef: Ref<HTMLDivElement | null>
 }
 export const useContent = (): UseContentReturn => {
-  const [selectedItem, setSelectedItem] = useState('')
+  const [selectedItem, setSelectedItem] = useAtom(selectedContentItemAtom)
 
   const [currentDirData, setCurrentDirData] = useAtom(currentDirDataAtom)
   const [selectedDirectoryKey, setSelectedDirectoryKey] = useAtom(selectedDirectoryKeyAtom)
@@ -29,6 +31,7 @@ export const useContent = (): UseContentReturn => {
 
   const setOpenDirs = useSetAtom(openDirsAtom)
   const setNavigationHistory = useSetAtom(navigationHistoryAtom)
+  const setSelectedContentItem = useSetAtom(selectedContentItemAtom)
 
   const showHiddenItem = useAtomValue(showHiddenItemsAtom)
 
@@ -68,12 +71,27 @@ export const useContent = (): UseContentReturn => {
     }
   }, [selectedDirectoryKey, directoriesData])
 
+  const contentContainerRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (!event.target.closest['[data-item]']) {
+        setSelectedItem('')
+        setSelectedContentItem('')
+      }
+    }
+
+    window.addEventListener('click', handleClickOutside)
+    return () => window.removeEventListener('click', handleClickOutside)
+  }, [])
+
   return {
     currentDirData,
     showHiddenItem,
     isSelected,
     setSelectedItem,
     handleDoubleClick,
-    selectedDirectoryKey
+    selectedDirectoryKey,
+    contentContainerRef
   }
 }

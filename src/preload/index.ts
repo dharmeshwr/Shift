@@ -9,6 +9,7 @@ const api = {
 
   getUserDirectoryAndFiles: (path: string) => ipcRenderer.invoke('fs:get-list', path),
   getDirectoryTreeData: () => ipcRenderer.invoke('fs:get-tree'),
+  getDiskDetails: () => ipcRenderer.invoke('fs:get-size'),
 
   getSavedNavigationHistory: () => ipcRenderer.invoke('navigation:get'),
   saveNavigationHistory: (data: NavigationHistory) => ipcRenderer.invoke('navigation:save', data),
