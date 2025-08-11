@@ -12,7 +12,10 @@ export interface IFile {
 
 export interface IPlaces {
   main: string[]
-  xdgs: IDirectory[]
+  xdgs: {
+    name: string
+    file: string
+  }
 }
 
 export type DiskSize = { total: string; free: string }

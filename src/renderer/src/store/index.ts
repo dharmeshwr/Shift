@@ -1,7 +1,9 @@
-import { NavigationHistory, IDirectory } from '@shared/types'
+import { NavigationHistory, IDirectory, SidebarView } from '@shared/types'
 import { atom } from 'jotai'
 import { EmptyDirectory, EmptyNavigationHistory } from './mocks'
 import { homeDirectoryKey } from '@shared/constants'
+
+export const viewAtom = atom<SidebarView>(SidebarView.Places)
 
 export const showHiddenItemsAtom = atom<boolean>(false)
 export const openDirsAtom = atom<string[]>([homeDirectoryKey])

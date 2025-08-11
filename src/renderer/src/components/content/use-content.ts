@@ -5,11 +5,12 @@ import {
   openDirsAtom,
   selectedContentItemAtom,
   selectedDirectoryKeyAtom,
-  showHiddenItemsAtom
+  showHiddenItemsAtom,
+  viewAtom
 } from '@renderer/store'
 import { updateDirectoriesData, updateNavigationHistory, updateOpenDirs } from '@renderer/utils'
 import { keyDelimiter } from '@shared/constants'
-import { IDirectory } from '@shared/types'
+import { IDirectory, SidebarView } from '@shared/types'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { Ref, useEffect, useRef } from 'react'
 
@@ -34,18 +35,27 @@ export const useContent = (): UseContentReturn => {
   const setSelectedContentItem = useSetAtom(selectedContentItemAtom)
 
   const showHiddenItem = useAtomValue(showHiddenItemsAtom)
+  const view = useAtomValue(viewAtom)
 
   const isSelected = (key: string): boolean => key == selectedItem
 
   const handleDoubleClick = async (key: string, type: string, path?: string): Promise<void> => {
     if (type === 'file' || !path) return
 
-    await updateDirectoriesData(key, path, setDirectoriesData)
-    updateNavigationHistory(key, setNavigationHistory)
+    if (view === SidebarView.Places) {
+      const { getUserDirectoryAndFiles } = window.api
+      const data = await getUserDirectoryAndFiles(path)
+      setCurrentDirData(data)
+    }
 
-    setSelectedDirectoryKey(key)
+    if (view === SidebarView.DirectoryTree) {
+      await updateDirectoriesData(key, path, setDirectoriesData)
+      updateNavigationHistory(key, setNavigationHistory)
 
-    updateOpenDirs(key, setOpenDirs)
+      setSelectedDirectoryKey(key)
+
+      updateOpenDirs(key, setOpenDirs)
+    }
   }
 
   useEffect(() => {

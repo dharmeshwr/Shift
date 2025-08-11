@@ -15,6 +15,8 @@ declare global {
       getSavedNavigationHistory: () => Promise<NavigationHistory>
       saveNavigationHistory: (data: NavigationHistory) => Promise<void>
       getCurrent: () => Promise<string>
+
+      getXdgDirectories: () => Promise<Record<string, string>>
     }
   }
 }

@@ -13,7 +13,9 @@ const api = {
 
   getSavedNavigationHistory: () => ipcRenderer.invoke('navigation:get'),
   saveNavigationHistory: (data: NavigationHistory) => ipcRenderer.invoke('navigation:save', data),
-  getCurrent: () => ipcRenderer.invoke('navigation:current')
+  getCurrent: () => ipcRenderer.invoke('navigation:current'),
+
+  getXdgDirectories: () => ipcRenderer.invoke('fs:get-xdg')
 }
 
 if (!process.contextIsolated) {

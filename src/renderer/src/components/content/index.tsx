@@ -18,6 +18,7 @@ export const Content = (props: ComponentProps<'div'>): React.ReactElement => {
     contentContainerRef
   } = useContent()
 
+
   return (
     <div className="p-5 pb-24" onClick={(e) => e.stopPropagation()} {...props}>
       <div className="flex gap-4 flex-wrap" ref={contentContainerRef}>
