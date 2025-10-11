@@ -4,7 +4,7 @@ A file manager built on electron
 ## Todos
 - ~Wire Up the UI - 100% done~
 - Sidebar
-  - Shows places like home, desktop, trash and XDG base dirs.
+  - ~~Shows places like home, desktop, trash and XDG base dirs.~~
   - ~Shows directory tree~
   - ~Toggle hidden files~
   - ~Presistant view~
@@ -30,18 +30,18 @@ A file manager built on electron
       - properties
 
 - Header
-  - home, foward and backward button
-  - location bar; go to the path in location bar; Ctrl + l to focus
+  - ~~home, foward and backward button~~
+  - ~~location bar; go to the path in location bar; Ctrl + l to focus~~
   - history
 
 - Footer
-  - left side
-    - no selection
-      - total items count (hidden items count)
-    - selection
-      - selected file size
-  - right side
-    - free space (total space)
+  - ~~left side~~
+    - ~~no selection~~
+      - ~~total items count (hidden items count)~~
+    - ~~selection~~
+      - ~~selected file size~~
+  - ~~right side~~
+    - ~~free space (total space)~~
 
 - ~Themes~
   - ~default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark~

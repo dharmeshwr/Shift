@@ -1,9 +1,9 @@
 {
-  "sidebarView": "Places",
-  "theme": "solarized",
+  "sidebarView": "Directory Tree",
+  "theme": "default",
   "sidebarOpenDirs": [
     "*-0",
     "*-0-27"
   ],
-  "showHidden": false
+  "showHidden": true
 }

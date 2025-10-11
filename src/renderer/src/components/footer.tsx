@@ -67,7 +67,7 @@ export const Footer = ({ className, ...rest }: ComponentProps<'div'>): React.Rea
       className={cn('absolute bottom-0 w-full flex items-center justify-center', className)}
       {...rest}
     >
-      <div className="flex justify-between w-full text-sm text-gray-600 dark:text-gray-300">
+      <div className="flex justify-between w-full text-sm text-foreground-base/60">
         {leftlabel.length === 0 ? (
           <div>
             <span>{data.items} items</span>
