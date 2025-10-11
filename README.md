@@ -46,6 +46,8 @@ A file manager built on electron
 - ~Themes~
   - ~default, Gruvbox, Dracula, Nord, Solarized, Night owl, One dark~
 
+![image alt](https://github.com/dharmeshwr/Shift/blob/master/screenshot_28.png?raw=true)
+
 ### Install
 
 ```bash
